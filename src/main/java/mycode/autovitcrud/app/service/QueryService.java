@@ -1,14 +1,14 @@
 package mycode.autovitcrud.app.service;
 
-import mycode.autovitcrud.app.model.Masina;
+import mycode.autovitcrud.app.dto.CarResponse;
+import mycode.autovitcrud.app.model.Car;
 
 import java.util.List;
 
 public interface QueryService {
 
-    void showCars();
 
-    Masina findByMakeAndModel(String marca, String model);
+    List<CarResponse> findAllCars();
 
-    List<Masina> findAllCars();
+    CarResponse findById(int id);
 }

@@ -1,14 +1,15 @@
 package mycode.autovitcrud.app.service;
 
 import mycode.autovitcrud.app.dto.CreateCarRequest;
-import mycode.autovitcrud.app.dto.CreateCarResponse;
-import mycode.autovitcrud.app.model.Masina;
+import mycode.autovitcrud.app.dto.CarResponse;
+import mycode.autovitcrud.app.dto.UpdateCarRequest;
+import org.hibernate.sql.Update;
 
 public interface CommandService {
 
-    CreateCarResponse addCar(CreateCarRequest createCarRequest);
+    CarResponse addCar(CreateCarRequest createCarRequest);
 
-    void deleteCar(int id);
+    CarResponse deleteCar(int id);
 
-    void updateCar(int id);
+    CarResponse updateCar(int id, UpdateCarRequest updateCarRequest);
 }

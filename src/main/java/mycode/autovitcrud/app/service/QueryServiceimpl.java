@@ -1,44 +1,43 @@
 package mycode.autovitcrud.app.service;
 
+import lombok.AllArgsConstructor;
+import mycode.autovitcrud.app.dto.CarResponse;
 import mycode.autovitcrud.app.exceptions.CarNotFound;
-import mycode.autovitcrud.app.model.Masina;
-import mycode.autovitcrud.app.repository.MasinaRepository;
+import mycode.autovitcrud.app.mapper.CarMapper;
+import mycode.autovitcrud.app.model.Car;
+import mycode.autovitcrud.app.repository.CarRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
+@AllArgsConstructor
 @Service
 public class QueryServiceimpl implements QueryService{
 
-    private MasinaRepository masinaRepository;
-
-    public QueryServiceimpl(MasinaRepository masinaRepository) {
-        this.masinaRepository = masinaRepository;
-    }
+    private CarRepository carRepository;
 
 
-    public void showCars() {
-        List<Masina> list = masinaRepository.findAll();
 
-        list.forEach(System.out::println);
+    @Override
+    public List<CarResponse> findAllCars() {
+        List<Car> list = carRepository.findAll();
+
+        List<CarResponse> rez = new ArrayList<>();
+
+        list.forEach(car -> {
+            rez.add(CarMapper.carToResponseDto(car));
+        });
+
+        return rez;
     }
 
     @Override
-    public Masina findByMakeAndModel(String marca, String model) {
-        Optional<Masina> masina = masinaRepository.findByMarcaAndModel(marca,model);
+    public CarResponse findById(int id) {
+        Car car = carRepository.findById(id)
+                .orElseThrow(() -> new CarNotFound("No car with this id found"));
 
-        if(masina.isPresent()){
-            return masina.get();
-        }else{
-            throw new CarNotFound("");
-        }
-
-    }
-
-    @Override
-    public List<Masina> findAllCars() {
-        return masinaRepository.findAll();
+        return CarMapper.carToResponseDto(car);
     }
 
 

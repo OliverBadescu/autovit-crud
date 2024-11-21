@@ -2,7 +2,6 @@ package mycode.autovitcrud.app.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.antlr.v4.runtime.misc.NotNull;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
@@ -21,7 +20,9 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 )
 @Entity(name = "Masina")
 @ToString
-public class Masina {
+@Getter
+@Setter
+public class Car {
 
     @Id
     @SequenceGenerator(
@@ -38,7 +39,7 @@ public class Masina {
     @Column(
             name = "id"
     )
-    private long id;
+    private int id;
 
 
     @Column(
@@ -72,7 +73,7 @@ public class Masina {
     private int km;
 
     @Column(
-            name = "uzatat",
+            name = "uzata",
             nullable = false,
             columnDefinition = "BOOLEAN"
     )
@@ -84,5 +85,7 @@ public class Masina {
             columnDefinition = "DOUBLE"
     )
     private double pret;
+
+
 
 }
